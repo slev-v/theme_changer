@@ -4,8 +4,7 @@ import os
 from typing import List
 
 from gumpython import Choose
-from iterm2 import (Connection, PartialProfile, async_get_app,
-                    run_until_complete)
+from iterm2 import Connection, PartialProfile, async_get_app, run_until_complete
 
 
 async def get_all_themes(connection: Connection) -> List[str]:
@@ -44,15 +43,15 @@ def change_nvim_theme(theme_name: str) -> None:
     home_directory = os.path.expanduser("~")
 
     file_path = os.path.join(
-        home_directory, ".config", "nvim", "lua", "user", "init.lua"
+        home_directory, ".config", "nvim", "lua", "plugins", "colorscheme.lua"
     )
 
     with open(file_path, "r") as file:
         lines = file.readlines()
 
     for i in range(len(lines)):
-        if lines[i].startswith('  colorscheme = "'):
-            lines[i] = f'  colorscheme = "{theme_name}",\n'
+        if lines[i].startswith('      colorscheme = "'):
+            lines[i] = f'      colorscheme = "{theme_name}",\n'
 
     with open(file_path, "w") as file:
         file.writelines(lines)
